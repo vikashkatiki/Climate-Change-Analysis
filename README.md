@@ -93,11 +93,6 @@ pip install -r requirements.txt
 python final.py
 
 
-📊 Sample Output
-
-
-
-
 📌 Conclusion
 
 This project demonstrates how data science techniques can be used to analyze climate trends and predict future environmental changes. The results highlight the strong relationship between CO₂ emissions and global temperature rise.
