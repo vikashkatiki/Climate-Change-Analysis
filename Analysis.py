@@ -13,14 +13,20 @@ from scipy import stats
 temp = pd.read_csv("temperature.csv")
 co2 = pd.read_csv("co2.csv", comment='#', header=None)
 co2.columns = ['year','month','day','decimal','CO2']
+rain = pd.read_csv("rainfall.csv")
+
+
 
 print(temp.columns)
 print(co2.columns)
+print(rain.columns)
 
 print(temp.shape)
 print(co2.shape)
+print(rain.shape)
 print(temp.head())
 print(co2.head())
+print(rain.head())
 
 # Rename Mean → Temperature
 temp.rename(columns={'Mean': 'Temperature'}, inplace=True)
@@ -39,21 +45,39 @@ co2['Year'] = pd.to_numeric(co2['year'], errors='coerce')
 co2 = co2[['Year','CO2']].dropna()
 co2['Year'] = co2['Year'].astype(int)
 
+rain['Rainfall'] = rain.iloc[:,1:].sum(axis=1)
+rain = rain[['YEAR','Rainfall']]
+rain.rename(columns={'YEAR':'Year'}, inplace=True)
+
+rain['Year'] = rain['Year'].astype(int)
+
+print(rain.head())
+
 temp_yearly = temp.groupby('Year', as_index=False)['Temperature'].mean()
 co2_yearly  = co2.groupby('Year', as_index=False)['CO2'].mean()
 
 print(temp_yearly.head())
 print(co2_yearly.head())
 
-start_year = max(temp_yearly['Year'].min(), co2_yearly['Year'].min())
-end_year   = min(temp_yearly['Year'].max(), co2_yearly['Year'].max())
+start_year = max(temp_yearly['Year'].min(), co2_yearly['Year'].min(), rain['Year'].min())
+end_year   = min(temp_yearly['Year'].max(), co2_yearly['Year'].max(), rain['Year'].max())
 
 temp_yearly = temp_yearly[(temp_yearly['Year'] >= start_year) & (temp_yearly['Year'] <= end_year)]
-co2_yearly  = co2_yearly[(co2_yearly['Year']  >= start_year) & (co2_yearly['Year']  <= end_year)]
+co2_yearly  = co2_yearly[(co2_yearly['Year'] >= start_year) & (co2_yearly['Year'] <= end_year)]
+rain        = rain[(rain['Year'] >= start_year) & (rain['Year'] <= end_year)]
 
 data = pd.merge(temp_yearly, co2_yearly, on='Year', how='inner')
+data = pd.merge(data, rain, on='Year', how='inner')
 
 print(data.head())
+print(data.shape)
+
+data['Temp_Rain'] = data['Temperature'] * data['Rainfall']
+data['CO2_Rain'] = data['CO2'] * data['Rainfall']
+data['Rain_Change'] = data['Rainfall'].diff()
+
+data.bfill(inplace=True)
+
 print("Rows:", len(data))
 
 print(data.info())
