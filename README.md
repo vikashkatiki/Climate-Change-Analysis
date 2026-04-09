@@ -2,7 +2,7 @@
 
 📌 Project Overview
 
-This project analyzes global climate change trends using historical **temperature** and **CO₂ concentration** datasets.
+This project analyzes global climate change trends using historical **temperature, CO₂ concentration and Rainfall** datasets.
 It applies **data cleaning, exploratory data analysis (EDA), statistical analysis, and machine learning** to understand patterns and predict future temperature trends.
 
 
@@ -11,6 +11,7 @@ It applies **data cleaning, exploratory data analysis (EDA), statistical analysi
 
 * Analyze long-term temperature changes
 * Study the relationship between CO₂ levels and temperature
+* Understand the impact of rainfall on climate patterns  
 * Perform advanced data visualization
 * Build a predictive model for future temperature
 
@@ -19,6 +20,7 @@ It applies **data cleaning, exploratory data analysis (EDA), statistical analysi
 
 * 📈 Global temperature shows a consistent upward trend
 * 🌫 CO₂ concentration has increased significantly over time
+* 🌧 Rainfall variations influence climate behavior 
 * 🔗 Strong positive correlation between CO₂ and temperature
 * 🤖 Model predicts continued temperature rise in future years
 
@@ -38,9 +40,10 @@ It applies **data cleaning, exploratory data analysis (EDA), statistical analysi
 
 Climate-Change-Analysis/
 │
-├── Analysis.py                # Complete project code
+├── Analysis.py            # Complete project code
 ├── temperature.csv        # Temperature dataset
 ├── co2.csv                # CO₂ dataset
+├── rainfall.csv           # Rainfall dataset
 ├── README.md              # Project documentation
 ├── requirements.txt       # Required libraries
 
@@ -90,7 +93,7 @@ pip install -r requirements.txt
 
 2. Run the project:
 
-python final.py
+python Analysis.py
 
 
 📌 Conclusion
@@ -105,7 +108,7 @@ This project demonstrates how data science techniques can be used to analyze cli
 
 🚀 Future Improvements
 
-* Use more environmental datasets (rainfall, humidity)
+* Use more environmental datasets (humidity)
 * Apply advanced ML models (Random Forest, XGBoost)
 * Build interactive dashboards (Power BI / Streamlit)
 
